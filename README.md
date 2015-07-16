@@ -2,7 +2,7 @@
 For check a Hardware Spec. &amp; verify a environment by check-list
 
 * Show up the HW Spec.
-* $ hwconfig
+* $] hwconfig
 
 ```
 Hostname: 	 manager01.ralfyang.com
@@ -24,13 +24,13 @@ PowerSupply: 	 2 onlined power cord(s)
 ```
 
 * Show up the HW Spec. for crawling
-* hwconfig -c
+* $] hwconfig -c
 ```
 | Hostname: manager01.platform.gsenext.com | OS: CentOS release 6.4 (Final) | CPU: Intel(R) Xeon(R) CPU E5-2640 0 @ 2.50GHz x 12(Core) | System: S210-X12RS  | UnitSize: 2U | Memory: 65946184 (8192MB x 8ea) | Disk size: sda=1198.0GB mapper/VG_data-lv_data=1081.0GB | Disk Qtty.: N/A | Disk type:  | Storage: Intel Corporation C602 chipset 4-Port SATA Storage Control Unit (rev 05) | RAID: N/A | Owner:  | Group: | Property: | Service: | Int.Switch: | Ext.Switch: | Rack: | IDC: | Network 0: eth0 10.52.164.254 | Netmask 0: 255.255.255.0 | Network 1:   | Netmask 1:  | Gateway: 10.52.164.1 | RAC IP: | Serial: QTFCEV2270082  | BIOS: American Megatrends Inc. S2RQ3A19 | Enterd: | Kernel: Linux 2.6.32-358.6.1.el6.x86_64 #1 SMP x86_64 | Update: 2015-07-16| @END@
 ```
 
 * Make a check-list by checklist.txt file
-* hwconfig -check
+* $] hwconfig -check
 ```
 ======================================================================================================================
  Configuration                       Target                           Current                                Result
@@ -89,7 +89,7 @@ PowerSupply: 	 2 onlined power cord(s)
 ```
 
 * You can make a checklist what you want as below
-* $ cat /data/var/checklist.txt
+* $] cat /data/var/checklist.txt
 ```
 # List for the system check
 
@@ -156,7 +156,7 @@ net.ipv4.tcp_keepalive_intvl,10,`cat /etc/sysctl.conf |grep "$TargetVar_ID" | aw
 ```
 
 * Help page
-* $ hwconfig -h
+* $] hwconfig -h
 ```
 =====================================================================
  hwconfig <no options> 	for the normal view
