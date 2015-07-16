@@ -1,5 +1,5 @@
 # hwconfig
-For check a Hardware Spec. &amp; verify a environment by check-list
+For check a Hardware Spec. &amp; verify an environment by check-list
 
 * Show up the HW Spec.
 * $] hwconfig
