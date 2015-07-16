@@ -14,7 +14,7 @@ Disk: 		 sda=1198.0GB mapper/VG_data-lv_data=1081.0GB
 Storage: 	 Intel Corporation C602 chipset 4-Port SATA Storage Control Unit (rev 05)
 RAID Level: 	 N/A
 RAID Disks: 	 N/A
-Network 0: 	 eth0=10.52.164.254 		 Netmask=255.255.255.0
+Network 0: 	 eth0=1.2.4.254 		 Netmask=255.255.255.0
 Gateway: 	 1.2.4.1
 OS: 		 CentOS release 6.4 (Final)
 BIOS: 		 American Megatrends Inc. S2RQ3A19
@@ -26,7 +26,7 @@ PowerSupply: 	 2 onlined power cord(s)
 * Show up the HW Spec. for crawling
 * $] hwconfig -c
 ```
-| Hostname: manager01.ralfyang.com | OS: CentOS release 6.4 (Final) | CPU: Intel(R) Xeon(R) CPU E5-2640 0 @ 2.50GHz x 12(Core) | System: S210-X12RS  | UnitSize: 2U | Memory: 65946184 (8192MB x 8ea) | Disk size: sda=1198.0GB mapper/VG_data-lv_data=1081.0GB | Disk Qtty.: N/A | Disk type:  | Storage: Intel Corporation C602 chipset 4-Port SATA Storage Control Unit (rev 05) | RAID: N/A | Owner:  | Group: | Property: | Service: | Int.Switch: | Ext.Switch: | Rack: | IDC: | Network 0: eth0 1.2.4.254 | Netmask 0: 255.255.255.0 | Network 1:   | Netmask 1:  | Gateway: 10.52.164.1 | RAC IP: | Serial: QTFCEV2270082  | BIOS: American Megatrends Inc. S2RQ3A19 | Enterd: | Kernel: Linux 2.6.32-358.6.1.el6.x86_64 #1 SMP x86_64 | Update: 2015-07-16| @END@
+| Hostname: manager01.ralfyang.com | OS: CentOS release 6.4 (Final) | CPU: Intel(R) Xeon(R) CPU E5-2640 0 @ 2.50GHz x 12(Core) | System: S210-X12RS  | UnitSize: 2U | Memory: 65946184 (8192MB x 8ea) | Disk size: sda=1198.0GB mapper/VG_data-lv_data=1081.0GB | Disk Qtty.: N/A | Disk type:  | Storage: Intel Corporation C602 chipset 4-Port SATA Storage Control Unit (rev 05) | RAID: N/A | Owner:  | Group: | Property: | Service: | Int.Switch: | Ext.Switch: | Rack: | IDC: | Network 0: eth0 1.2.4.254 | Netmask 0: 255.255.255.0 | Network 1:   | Netmask 1:  | Gateway: 1.2.4.1 | RAC IP: | Serial: WDFCEV2270082  | BIOS: American Megatrends Inc. S2RQ3A19 | Enterd: | Kernel: Linux 2.6.32-358.6.1.el6.x86_64 #1 SMP x86_64 | Update: 2015-07-16| @END@
 ```
 
 * Make a check-list by checklist.txt file
