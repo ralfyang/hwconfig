@@ -1,0 +1,132 @@
+# List for the system check
+
+# Syntax is [Title],[Target value],[Commandi line for result]
+
+# You can use the variable as below name for include the variables
+# $TargetVar_ID,$LineSort_Var2,$LineSort_Var3 
+
+# Also you can add a Line Breaker for the groups by minus character(-) in front of line
+#
+# List for the system check
+#
+# # Syntax is [Title],[Target value],[Commandi line for result]
+#
+# # You can use the variable as below name for include the variables
+# # $TargetVar_ID,$LineSort_Var2,$LineSort_Var3 
+#
+# # Also you can add a Line Breaker for the groups by minus character(-) in
+# front of line
+# #
+#- System Defult check
+CentOS Version,6.4,`lsb_release -r | awk '{print $2}'`
+Kernel Version,2.6.32-358.el6.x86_64,`uname -r`
+Locale,ko_KR.UTF-8,`locale | grep LANG | awk -F '=' '{print $2}'`
+Umask,002,`cat /etc/bashrc | grep "umask 0" | tail -1 | awk '{print $2}'`
+Ulimit,8192,`ulimit -n`
+Selinux,disabled,`cat /etc/selinux/config |grep "^SELINUX=" | awk -F "=" '{print $2}'`
+Init,3,`cat /etc/inittab |grep ^id | awk -F ':' '{print $2}'`
+Service DIR,applications,`ls / |egrep "^$LineSort_Var2"`
+Service account,service,`cat /etc/passwd | grep "service" | awk -F ':' '{print $1}'`
+Monitoring account,nagios,`cat /etc/passwd | grep "nagios" | awk -F ':' '{print $1}'`
+DNS-1st,8.8.8.8, `cat /etc/resolv.conf | awk  'NR==1 {print $2}'`
+DNS-2nd,168.126.63.1, `cat /etc/resolv.conf | awk  'NR==2 {print $2}'`
+
+- Installed Packages check
+/root/anaconda-ks.cfg,@Base,`sudo cat /root/anaconda-ks.cfg |grep "^$LineSort_Var2$"`
+/root/anaconda-ks.cfg,@Core,`sudo cat /root/anaconda-ks.cfg |grep "^$LineSort_Var2$"`
+/root/anaconda-ks.cfg,@directory-client,`sudo cat /root/anaconda-ks.cfg |grep "^$LineSort_Var2$"`
+/root/anaconda-ks.cfg,@hardware-monitoring,`sudo cat /root/anaconda-ks.cfg |grep "^$LineSort_Var2$"`
+/root/anaconda-ks.cfg,@korean-support,`sudo cat /root/anaconda-ks.cfg |grep "^$LineSort_Var2$"`
+/root/anaconda-ks.cfg,@large-systems,`sudo cat /root/anaconda-ks.cfg |grep "^$LineSort_Var2$"`
+/root/anaconda-ks.cfg,@network-file-system-client,`sudo cat /root/anaconda-ks.cfg |grep "^$LineSort_Var2$"`
+/root/anaconda-ks.cfg,@network-tools,`sudo cat /root/anaconda-ks.cfg |grep "^$LineSort_Var2$"`
+/root/anaconda-ks.cfg,@performance,`sudo cat /root/anaconda-ks.cfg |grep "^$LineSort_Var2$"`
+/root/anaconda-ks.cfg,@perl-runtime,`sudo cat /root/anaconda-ks.cfg |grep "^$LineSort_Var2$"`
+/root/anaconda-ks.cfg,@server-platform,`sudo cat /root/anaconda-ks.cfg |grep "^$LineSort_Var2$"`
+/root/anaconda-ks.cfg,compat-expat1,`sudo cat /root/anaconda-ks.cfg |grep "^$LineSort_Var2$"`
+/root/anaconda-ks.cfg,gcc,`sudo cat /root/anaconda-ks.cfg |grep "^$LineSort_Var2$"`
+/root/anaconda-ks.cfg,python-devel,`sudo cat /root/anaconda-ks.cfg |grep "^$LineSort_Var2$"`
+/root/anaconda-ks.cfg,python-setuptools,`sudo cat /root/anaconda-ks.cfg |grep "^$LineSort_Var2$"`
+/root/anaconda-ks.cfg,python-tools,`sudo cat /root/anaconda-ks.cfg |grep "^$LineSort_Var2$"`
+/root/anaconda-ks.cfg,telnet,`sudo cat /root/anaconda-ks.cfg |grep "^$LineSort_Var2$"`
+/root/anaconda-ks.cfg,vim-enhanced,`sudo cat /root/anaconda-ks.cfg |grep "^$LineSort_Var2$"`
+
+- IPv4 check
+net.ipv4.ipfrag_time,15,`cat /etc/sysctl.conf |grep "$TargetVar_ID" | awk '{print $3}'`
+net.ipv4.tcp_max_syn_backlog,8192,`cat /etc/sysctl.conf |grep "$TargetVar_ID" | awk '{print $3}'`
+net.ipv4.tcp_retries2,7,`cat /etc/sysctl.conf |grep "$TargetVar_ID" | awk '{print $3}'`
+net.ipv4.tcp_fin_timeout,20,`cat /etc/sysctl.conf |grep "$TargetVar_ID" | awk '{print $3}'`
+net.ipv4.tcp_keepalive_probes,2,`cat /etc/sysctl.conf |grep "$TargetVar_ID" | awk '{print $3}'`
+net.ipv4.tcp_keepalive_time,60,`cat /etc/sysctl.conf |grep "$TargetVar_ID" | awk '{print $3}'`
+net.ipv4.tcp_keepalive_intvl,10,`cat /etc/sysctl.conf |grep "$TargetVar_ID" | awk '{print $3}'`
+
+- Security check
+/usr/bin/chage(SUID),-rwxr-xr-x,`sudo ls -al /usr/bin/chage | awk -F "." '{print $1}'| sed 's/\.//'`
+/usr/bin/gpasswd(SUID),-rwxr-xr-x,`sudo ls -al /usr/bin/gpasswd | awk -F "." '{print $1}'| sed 's/\.//'`
+/usr/bin/wall(SGID),-r-xr-xr-x,`sudo ls -al /usr/bin/wall | awk '{print $1}'| sed 's/\.//'`
+/usr/bin/chfn(SUID),-rwx--x--x,`sudo ls -al /usr/bin/chfn | awk -F "." '{print $1}'| sed 's/\.//'`
+/usr/bin/newgrp(SUID),-rwxr-xr-x,`sudo ls -al /usr/bin/newgrp | awk -F "." '{print $1}'| sed 's/\.//'`
+/usr/bin/write(SGID),-rwxr-xr-x,`sudo ls -al /usr/bin/write | awk -F "." '{print $1}'| sed 's/\.//'`
+/usr/bin/at(SUID),-rwxr-xr-x,`sudo ls -al /usr/bin/at | awk -F "." '{print $1}'| sed 's/\.//'`
+/usr/sbin/usernetctl(SUID),-rwxr-xr-x,`sudo ls -al /usr/sbin/usernetctl | awk -F "." '{print $1}'| sed 's/\.//'`
+/usr/sbin/userhelper(SUID),-rwx--x--x,`sudo ls -al /usr/sbin/userhelper | awk '{print $1}'| sed 's/\.//'`
+/bin/mount(SUID),-rwxr-xr-x,`sudo ls -al /bin/mount | awk -F "." '{print $1}'| sed 's/\.//'`
+/bin/umountSUID),-rwxr-xr-x,`sudo ls -al /bin/umount | awk -F "." '{print $1}'| sed 's/\.//'`
+/etc/cron.deny,-rw-r-----,`sudo ls -al /etc/cron.deny | awk -F "." '{print $1}'| sed 's/\.//'`
+lock user login failed,deny=5 unlock_time=15,`sudo cat /etc/pam.d/password-auth |grep "deny=5 unlock_time=15"| awk '{print $4" "$5}'`
+# | awk '{print $4,$5}'`
+
+- Active daemon check
+abrt-ccpp,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+abrtd,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+acpid,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+atd,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+auditd,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+autofs,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+blk-availability,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+certmonger,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+cgconfig,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+cgred,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+cpuspeed,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+cups,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+haldaemon,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+ip6tables,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+ipsec,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+iptables,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+irqbalance,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+kdump,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+lvm2-monitor,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+mcelogd,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+mdmonitor,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+messagebus,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+netconsole,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+netfs,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+nfs,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+nfslock,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+ntpdate,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+numad,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+portreserve,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+postfix,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+psacct,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+quota_nld,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+rdisc,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+restorecond,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+rngd,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+rpcbind,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+rpcgssd,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+rpcidmapd,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+rpcsvcgssd,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+saslauthd,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+smartd,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+udev-post,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+winbind,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+ypbind,off,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+crond,on,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+network,on,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+nslcd,on,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+ntpd,on,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+opsview-agent,on,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+rsyslog,on,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+snmpd,on,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+sshd,on,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
+sysstat,on,`export LANG=c;chkconfig --list --level 3 $TargetVar_ID 2> /dev/null | awk '{print $5}' | sed -e 's/3://g'`
