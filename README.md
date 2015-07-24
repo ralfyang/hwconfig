@@ -172,3 +172,7 @@ net.ipv4.tcp_keepalive_intvl,10,`cat /etc/sysctl.conf |grep "$TargetVar_ID" | aw
 ```
 
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/goody80/hwconfig/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
