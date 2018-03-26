@@ -1,8 +1,8 @@
 # hwconfig
 For check a Hardware Spec. &amp; verify an environment by check-list
 
-* Notice! 
-* Bin files for the RHEL Linux only if you need to use the hwconfig to the ubuntu, then you should install the lspci & MegaCli to the ubuntu by packages.
+ * Notice! 
+   * Bin files for the RHEL Linux only if you need to use the hwconfig to the ubuntu, then you should install the lspci & MegaCli to the ubuntu by packages.
 
 ## How to install
 ```
